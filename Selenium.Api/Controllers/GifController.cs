@@ -20,8 +20,14 @@ public class GifController : ControllerBase
         _screenshotService = screenshotService;
     }
 
+    [HttpGet("helthcheck")]
+    public IActionResult HelthCheck()
+    {
+        return Ok();
+    }
+
     [HttpGet]
-    public IActionResult Get([FromQuery]CreateGifRequest request)
+    public IActionResult Get([FromQuery] CreateGifRequest request)
     {
         IEnumerable<Screenshot> screenshots = _screenshotService.CreateScreenshots(new Uri(request.Url),
                                                                request.ElementSelector,

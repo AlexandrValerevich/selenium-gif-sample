@@ -13,12 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// var remoteDriver = new RemoteWebDriver(new Uri("http://localhost:4444"), new ChromeOptions());
-var remoteDriver = new ChromeDriver();
-builder.Services.AddSingleton<IWebDriver>(remoteDriver);
+builder.Services.AddScoped<IWebDriver>(_ =>
+{
+    var remoteDriver = new RemoteWebDriver(new Uri("http://selenium:4444/"), new ChromeOptions());
+    // var remoteDriver = new ChromeDriver();
+    remoteDriver.Manage().Window.Maximize();
+    return remoteDriver;
+});
 
 builder.Services.AddSingleton<IGifService, GifService>();
-builder.Services.AddSingleton<IBrowserScreenshotService, BrowserScreenshotService>();
+builder.Services.AddScoped<IBrowserScreenshotService, BrowserScreenshotService>();
 
 var app = builder.Build();
 

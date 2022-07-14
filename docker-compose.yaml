@@ -1,11 +1,13 @@
 services:
 
   backend:
-    image: selenium/console
-    build: ./Selenium.Console
+    image: selenium/api
+    build: ./Selenium.Api
     depends_on:
       - frontend
       - selenium
+    ports:
+      - 80:80
     networks:
       - internal
 

@@ -15,8 +15,6 @@ public class BrowserScreenshotService : IBrowserScreenshotService
     public IEnumerable<Screenshot> CreateScreenshots(Uri url, string elementId, int count)
     {
         _driver.Navigate().GoToUrl(url);
-        _driver.Manage().Window.FullScreen();
-        // _driver.Manage().Window.Maximize();
         ITakesScreenshot element = _driver.FindElement(By.CssSelector(elementId)) as ITakesScreenshot;
 
         var result = new List<Screenshot>();
