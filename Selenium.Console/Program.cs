@@ -1,15 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
-using ImageMagick;
+﻿using ImageMagick;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Remote;
 
-using var driver = new ChromeDriver();
+string url = "http://frontend:80/Index.html";
+Uri remoteWebDriver = new("http://localhost:4444");
 
-driver.Navigate().GoToUrl("http://127.0.0.1:5500/Selenium.App/Index.html");
+using var driver = new RemoteWebDriver(remoteWebDriver, new ChromeOptions());
+
+driver.Navigate().GoToUrl(url);
 driver.Manage().Window.Maximize();
-
-// var elementScreenshot = (element as ITakesScreenshot).GetScreenshot();
-// // elementScreenshot.SaveAsFile("screenshot_of_element.png");
 
 IWebElement element = driver.FindElement(By.CssSelector("body"));
 var elementScreenshot = element as ITakesScreenshot;

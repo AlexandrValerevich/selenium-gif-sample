@@ -1,0 +1,33 @@
+services:
+
+  backend:
+    image: selenium/console
+    build: ./Selenium.Console
+    depends_on:
+      - frontend
+      - selenium
+    networks:
+      - internal
+
+  selenium:
+    image: selenium/standalone-chrome:4.3.0-20220706
+    shm_size: 2
+    ports:
+      - 4444:4444
+      - 7900:7900
+    depends_on:
+      - frontend
+    networks:
+      - internal
+
+  frontend:
+    image: selenium/app
+    build: ./Selenium.App
+    ports:
+      - 8080:80
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
